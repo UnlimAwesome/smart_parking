@@ -1,0 +1,7 @@
+$primary_margin: 1.5rem;
+
+
+@mixin border($color) {
+    border-radius: 2rem;
+    border: 2px solid $color;
+}

@@ -1,0 +1,24 @@
+@use "../abstracts/" as *;
+
+.textfield {
+    width: 100%;
+}
+
+.label {
+    font-weight: bolder;
+    font-size: $smaller_fs;
+    color: $label_cl;
+}
+
+.text {
+    font-weight: bolder;
+    margin-top: $smallest_margin;
+    margin-left: $smallest_margin;
+    font-size: $smaller_fs;
+    padding-top: $smaller_padding;
+    padding-bottom: $smaller_padding;
+    padding-left: $default_padding;
+    border: 2.5px solid $stroke_cl;
+    border-radius: 0.5rem;
+    color: $text_cl;
+}

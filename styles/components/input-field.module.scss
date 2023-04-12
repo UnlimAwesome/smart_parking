@@ -1,0 +1,72 @@
+@use "../abstracts/" as *;
+
+.inputfield {
+  padding: 0 $smaller_padding;
+  width: 100%;
+}
+
+.label {
+  font-weight: bolder;
+  font-size: $smaller_fs;
+  color: $label_cl;
+}
+
+.text {
+  font-weight: bolder;
+  margin-top: $smallest_margin;
+  font-size: $smaller_fs;
+  padding-top: $smaller_padding;
+  padding-bottom: $smaller_padding;
+  padding-left: $default_padding;
+  border-width: 2.5px;
+  border-style: solid;
+  border-color: $stroke_cl;
+  border-radius: 0.5rem;
+  color: $text_cl;
+  width: -webkit-fill-available;
+
+  &:hover,
+  &:focus {
+    border-color: $focus_cl;
+  }
+
+  &:invalid,
+  &[invalid] {
+    animation: shake 0.3s;
+    border-color: $error_cl;
+    border-width: 3px;
+    background-color: $error_bg_cl;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $placeholder_cl;
+  }
+  &:-moz-placeholder {
+    /* FF 4-18 */
+    color: $placeholder_cl;
+    opacity: 1;
+  }
+  &::-moz-placeholder {
+    /* FF 19+ */
+    color: $placeholder_cl;
+    opacity: 1;
+  }
+  &:-ms-input-placeholder {
+    /* IE 10+ */
+    color: $placeholder_cl;
+  }
+  &::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $placeholder_cl;
+  }
+  &::placeholder {
+    /* modern browser */
+    color: $placeholder_cl;
+  }
+}
+
+.error {
+  margin-left: $default_margin;
+  color: $error_cl;
+  font-size: $smallest_fs;
+}
