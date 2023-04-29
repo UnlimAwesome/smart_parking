@@ -1,12 +1,11 @@
+import Button from "@/components/button";
 import Base64 from "crypto-js/enc-base64";
 import sha256 from "crypto-js/sha256";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { ZodError, z } from "zod";
 import { fromZodError } from "zod-validation-error";
 import PageHead from "../../components/head";
-import Header from "../../components/header";
 import InputField from "../../components/input_field";
 import Main from "../../components/main";
 import PhoneField from "../../components/phone_field";
@@ -39,11 +38,9 @@ export default function SingUp(props: ISingUpProps) {
             .min(12, "Телефон должен содержать 12 знаков")
             .max(12, "Телефон должен содержать 12 знаков");
         try {
-            console.log(str, str.length);
             phoneSchema.parse(str);
             setError(null);
         } catch (e) {
-            console.log(fromZodError(e as ZodError).message.split(": ")[1]);
             setError(fromZodError(e as ZodError).message.split(": ")[1]);
             setFormValid(false);
             return;
@@ -59,7 +56,6 @@ export default function SingUp(props: ISingUpProps) {
                 }
             });
         } catch (e) {
-            console.log(e);
             setFormValid(false);
         }
     };
@@ -113,7 +109,6 @@ export default function SingUp(props: ISingUpProps) {
     return (
         <div>
             <PageHead title="Регистрация"></PageHead>
-            <Header></Header>
             <Main>
                 <form>
                     <InputField
@@ -138,13 +133,14 @@ export default function SingUp(props: ISingUpProps) {
                         label="Пароль"
                         validator={passwordValidator}
                     ></InputField>
-                    <button
+                    <Button
                         type="submit"
+                        style="primary"
                         disabled={!isFormValid}
                         onClick={processForm}
                     >
                         Зарегистрировать
-                    </button>
+                    </Button>
                 </form>
             </Main>
         </div>

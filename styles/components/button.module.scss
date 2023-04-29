@@ -1,0 +1,22 @@
+@use "../abstracts" as *;
+
+.container {
+    padding: 0 $smaller_padding;
+    width: 100%;
+    display: flex;
+}
+
+%button {
+    padding: $default_padding;
+    font-size: $bigger_fs;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: 2px solid $primary_color;
+    width: 100%;
+}
+
+.primary {
+    @extend %button;
+    color: white;
+    background-color: $primary_color;
+}

@@ -12,18 +12,24 @@
 }
 
 .text {
-  font-weight: bolder;
+  font-weight: normal;
   margin-top: $smallest_margin;
-  font-size: $smaller_fs;
-  padding-top: $smaller_padding;
-  padding-bottom: $smaller_padding;
+  font-size: $default_fs;
+  padding-top: $default_padding;
+  padding-bottom: $default_padding;
   padding-left: $default_padding;
   border-width: 2.5px;
   border-style: solid;
-  border-color: $stroke_cl;
+  border-color: $primary_color;
   border-radius: 0.5rem;
   color: $text_cl;
   width: -webkit-fill-available;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    background-color: white!important;
+  }
 
   &:hover,
   &:focus {
@@ -66,6 +72,7 @@
 }
 
 .error {
+  margin-top: $smallest_margin;
   margin-left: $default_margin;
   color: $error_cl;
   font-size: $smallest_fs;

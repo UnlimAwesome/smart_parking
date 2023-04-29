@@ -5,10 +5,11 @@
 // $font_family: "Exo 2", sans-serif;
 // $font_family:'Comfortaa', cursive;
 // $font_family:'Montserrat', sans-serif;
-$font_family: 'Roboto', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+$font_family: "Roboto", sans-serif;
 
 $biggest_fs: 24px;
 $bigger_fs: 20px;
-$default_fs: 18px;
-$smaller_fs: 16px;
+$default_fs: 16px;
+$smaller_fs: 14px;
 $smallest_fs: 12px;

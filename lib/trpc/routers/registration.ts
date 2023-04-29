@@ -2,6 +2,9 @@ import prisma from "@/lib/db/prisma";
 import { z } from "zod";
 import { procedure, router } from "../init";
 
+const bcrypt = require("bcrypt")
+
+
 export const registrationRouter = router({
     phoneValidation: procedure.input(z.string()).mutation(async ({ input }) => {
         const user = await prisma.user.findUnique({
@@ -43,15 +46,15 @@ export const registrationRouter = router({
                 accountId,
             } = input;
             try {
+                const hash = await bcrypt.hash(password, 10);
                 const user = await prisma.user.create({
                     data: {
                         firstName: firstName,
                         secondName: secondName,
-                        password: password,
+                        password: hash,
                         phone: phone,
                     },
                 });
-                console.log("user", user)
                 if (accountProvider && accountId) {
                     const account = await prisma.account.update({
                         where: {
@@ -70,7 +73,6 @@ export const registrationRouter = router({
                     });
                 }
             } catch (err) {
-                console.log(err);
                 return err;
             }
         }),

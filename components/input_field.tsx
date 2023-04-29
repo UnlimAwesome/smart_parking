@@ -8,6 +8,7 @@ import {
 import styles from "../styles/components/input-field.module.scss";
 
 export interface IInputFieldProps {
+    type?: string;
     label?: string;
     children?: string;
     validator?: (str: string, setError: Function) => void;
@@ -38,6 +39,10 @@ const InputField = forwardRef(
         const debounceQuery = useDebounceValue(query);
         const [error, setError] = useState("");
 
+        useEffect(()=>{
+            // setQuery()
+            
+        })
         useEffect(() => {
             if (props.validator) {
                 props.validator(debounceQuery, setError);
@@ -60,7 +65,7 @@ const InputField = forwardRef(
             <div className={styles.inputfield}>
                 {props.label && <h4 className={styles.label}>{props.label}</h4>}
                 <input
-                    type="text"
+                    type={props.type?? "text"}
                     ref={ref}
                     className={styles.text}
                     placeholder={props.children}

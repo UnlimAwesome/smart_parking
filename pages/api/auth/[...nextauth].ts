@@ -1,27 +1,39 @@
+import prisma from "@/lib/db/prisma";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import YandexProvider from "next-auth/providers/yandex";
-import VkProvider from "next-auth/providers/vk";
 import CredentialsProvider from "next-auth/providers/credentials";
+const bcrypt = require("bcrypt")
 
 export const authOptions: NextAuthOptions = {
     providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_ID!,
-            clientSecret: process.env.GOOGLE_SECRET!,
-        }),
-        YandexProvider({
-            clientId: process.env.YANDEX_ID!,
-            clientSecret: process.env.YANDEX_SECRET!,
-        }),
-        VkProvider({
-            clientId: process.env.VK_ID!,
-            clientSecret: process.env.VK_SECRET!,
-        }),
         CredentialsProvider({
             name: "Credentials",
             credentials: {},
             async authorize(credentials, req) {
+                const { phone, password } = credentials as any;
+                try {
+                    const userFromDB = await prisma.user.findUnique({
+                        where: {
+                            phone: phone,
+                        },
+                    });
+                    if(!userFromDB){
+                        throw new Error("user_not_found");
+                    }
+                    const valid = await bcrypt.compare(
+                        password,
+                        userFromDB.password
+                    );
+                    if (valid) {
+                        const hash = await bcrypt.hash(password, 7);
+                        const user = {
+                            id: userFromDB!.phone,
+                            password: hash,
+                        };
+                        return user;
+                    }
+                } catch (error: any) {
+                    throw new Error(error.message);
+                }
                 return null;
             },
         }),
@@ -31,7 +43,8 @@ export const authOptions: NextAuthOptions = {
         maxAge: 2 * 24 * 60 * 60,
     },
     pages: {
-        signIn: "auth/signin",
+        signIn: "/user/signin",
+        error: "/user/signin",
     },
     secret: process.env.NEXTAUTH_SECRET,
 };

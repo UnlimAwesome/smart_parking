@@ -73,19 +73,19 @@ const PhoneField = forwardRef(
                             if (!e.target.value.startsWith("+7")) {
                                 if (!e.target.value.startsWith("+")) {
                                     return ("+7" + e.target.value)
-                                        .replaceAll(/[A-Za-zА-Яа-я]/g, "")
+                                        .replaceAll(/[A-Za-zА-Яа-я ]/g, "")
                                         .substring(0, 12);
                                 } else {
                                     return (
                                         "+7" +
                                         e.target.value
-                                            .replaceAll(/[A-Za-zА-Яа-я]/g, "")
+                                            .replaceAll(/[A-Za-zА-Яа-я ]/g, "")
                                             .replaceAll("+", "")
                                     ).substring(0, 12);
                                 }
                             } else {
                                 return e.target.value
-                                    .replaceAll(/[A-Za-zА-Яа-я]/g, "")
+                                    .replaceAll(/[A-Za-zА-Яа-я ]/g, "")
                                     .substring(0, 12);
                             }
                         });
