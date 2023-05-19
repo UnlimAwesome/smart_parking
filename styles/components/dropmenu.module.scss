@@ -78,6 +78,9 @@
 .foreground {
     position: absolute;
     background-color: $background_color;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     top: 12%;
     bottom: 2%;
     left: 5%;
@@ -93,6 +96,8 @@
 
 .car_container {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .xmark {
@@ -109,9 +114,20 @@
     background-color: black;
 }
 
-.left_button{
+.left_button {
+    background-color: transparent;
     width: 0;
-    border-bottom: 20px solid #000;
-    border-left: 10px solid #000;
-    border-right: 10px solid #000;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 15px solid $primary_color;
+}
+
+.right_button {
+    background-color: transparent;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 15px solid $primary_color;
 }

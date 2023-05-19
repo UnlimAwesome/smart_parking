@@ -102,7 +102,6 @@ class ParkingController {
                 const actualDateTime = new Date()
                 const diff = (actualDateTime.valueOf() - parkingfromDB.entry.valueOf())/1000/60
                 const cost = Math.round(diff * 2)
-                console.log(diff);
                 const parking = await prisma.parking.update({
                     where: {
                         id: parkingfromDB!.id,

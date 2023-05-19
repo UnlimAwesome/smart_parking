@@ -25,5 +25,4 @@ export default async function handler(
         res.status(500).json(data);
     }
 
-    console.log("DTO: ", data);
 }

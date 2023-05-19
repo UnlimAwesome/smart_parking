@@ -4,24 +4,28 @@ import Main from "@/components/main";
 import { trpc } from "@/lib/trpc/util-trpc";
 import styles from "@/styles/pages/index.module.scss";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
 
 export default function Home() {
     const client = trpc.user;
     const user = client.profile.useQuery();
-    const places = trpc.parking.freePlaces.useQuery();
+    const myStats = trpc.parking.myStats.useQuery();
+    const places = trpc.parking.places.useQuery();
+    const freePlaces = trpc.parking.freePlaces.useQuery();
+    const [mapOpened, setMapOpened] = useState(false);
     function manageProfile() {
-        throw new Error("Function not implemented.");
+        console.log("Function not implemented.");
     }
 
     function openMap(): void {
-        throw new Error("Function not implemented.");
+        setMapOpened((opened) => !opened);
     }
 
     return (
         <Main>
             <>
                 <div className={styles.container}>
-                    <h1 className={styles.places}>
+                    <h1 className={styles.free_places}>
                         Количество свободных мест на парковке:
                         <br />
                     </h1>
@@ -31,8 +35,31 @@ export default function Home() {
                         disabled={false}
                         onClick={() => openMap()}
                     >
-                        {places.data?.count.toString() || ""}
+                        {freePlaces.data?.count.toString() || ""}
                     </Button>
+                    {mapOpened && (
+                        <div className={styles.map}>
+                            <div className={styles.places}>
+                                {places.data &&
+                                    places.data.map((place) => {
+                                        return (
+                                            <div
+                                                key={place.id}
+                                                className={
+                                                    place.occupated
+                                                        ? styles.occupated_place
+                                                        : styles.free_place
+                                                }
+                                            ></div>
+                                        );
+                                    })}
+                            </div>
+                            <div style={{marginTop: "auto"}} className={styles.places}>
+                                <p>Въезд</p>
+                                <p>Выезд</p>
+                            </div>
+                        </div>
+                    )}
                     <section className={styles.section}>
                         <div className={styles.info}>
                             <h2 className={styles.header}>
@@ -60,8 +87,12 @@ export default function Home() {
                             <h2 className={styles.header}>Общая статистика</h2>
                             <ul className={styles.list}>
                                 <li className={styles.list_item}>
-                                    <p className={styles.key}>Время использования парковки</p>
-                                    <p className={styles.value}></p>
+                                    <p className={styles.key}>
+                                        Время использования парковки
+                                    </p>
+                                    <p className={styles.value}>
+                                        {myStats.data?.totalTime}
+                                    </p>
                                 </li>
                             </ul>
                         </div>

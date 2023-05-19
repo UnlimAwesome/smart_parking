@@ -7,7 +7,6 @@ export const createContext = async (opts: CreateNextContextOptions) => {
         req: opts.req,
         secret: process.env.NEXTAUTH_SECRET,
     });
-    console.log("create Context token: ", token);
     return {
         ...opts,
         token,
