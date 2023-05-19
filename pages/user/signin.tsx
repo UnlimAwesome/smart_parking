@@ -8,7 +8,7 @@ import sha256 from "crypto-js/sha256";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { MouseEvent, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import { ZodError, z } from "zod";
 import { fromZodError } from "zod-validation-error";
 
@@ -18,7 +18,7 @@ export default function SignIn() {
     const [message, setError] = useState<string>("");
     const phone = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
-
+    
     const phoneSchema = z
         .string()
         .min(12, "Телефон должен содержать 12 знаков")
@@ -72,6 +72,7 @@ export default function SignIn() {
                         Номер телефона
                     </PhoneField>
                     <InputField
+                        testid="password"
                         validator={notEmptyValidator}
                         type="password"
                         ref={password}

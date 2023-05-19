@@ -9,7 +9,8 @@ import PageHead from "../../components/head";
 import InputField from "../../components/input_field";
 import Main from "../../components/main";
 import PhoneField from "../../components/phone_field";
-import { trpc } from "../../lib/trpc/util";
+import { trpc } from "../../lib/trpc/util-trpc";
+import { signIn } from "next-auth/react";
 
 export interface ISingUpProps {}
 
@@ -89,20 +90,20 @@ export default function SingUp(props: ISingUpProps) {
                 accountProvider: provider && (provider as string),
             });
 
-            // signIn("credentials", {
-            //     phone: phone.current!.value,
-            //     password: password.current!.value,
-            //     redirect: true,
-            //     callbackUrl: callbackUrl as string,
-            // });
-            // if (provider && client_id) {
-            //     signIn("credentials", {
-            //         phone: phone.current!.value,
-            //         password: password.current!.value,
-            //         redirect: true,
-            //         callbackUrl: callbackUrl as string,
-            //     });
-            // }
+            signIn("credentials", {
+                phone: phone.current!.value,
+                password: password.current!.value,
+                redirect: true,
+                callbackUrl: callbackUrl as string,
+            });
+            if (provider && client_id) {
+                signIn("credentials", {
+                    phone: phone.current!.value,
+                    password: password.current!.value,
+                    redirect: true,
+                    callbackUrl: callbackUrl as string,
+                });
+            }
         }
     }
 
@@ -112,11 +113,13 @@ export default function SingUp(props: ISingUpProps) {
             <Main>
                 <form>
                     <InputField
+                        testid="name"
                         ref={firstName}
                         label="Имя"
                         validator={notEmptyValidator}
                     ></InputField>
                     <InputField
+                    testid="surname"
                         ref={secondName}
                         label="Фамилия"
                         validator={notEmptyValidator}
@@ -129,6 +132,7 @@ export default function SingUp(props: ISingUpProps) {
                         +7 (000) 000-00-00
                     </PhoneField>
                     <InputField
+                        testid="password"
                         ref={password}
                         label="Пароль"
                         validator={passwordValidator}

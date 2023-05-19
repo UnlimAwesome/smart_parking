@@ -60,6 +60,7 @@ const PhoneField = forwardRef(
             <div className={styles.inputfield}>
                 {props.label && <h4 className={styles.label}>{props.label}</h4>}
                 <input
+                    data-testid="phone-field"
                     value={query}
                     type="text"
                     ref={ref}
@@ -91,7 +92,7 @@ const PhoneField = forwardRef(
                         });
                     }}
                 ></input>
-                {error && <p className={styles.error}>{error}</p>}
+                {error && <p data-testid="phone-error" className={styles.error}>{error}</p>}
             </div>
         );
     }

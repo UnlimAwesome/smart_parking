@@ -1,12 +1,12 @@
 import prisma from "@/lib/db/prisma";
 import { z } from "zod";
-import { procedure, router } from "../init";
+import { publicProcedure, router } from "../init";
 
 const bcrypt = require("bcrypt")
 
 
 export const registrationRouter = router({
-    phoneValidation: procedure.input(z.string()).mutation(async ({ input }) => {
+    phoneValidation: publicProcedure.input(z.string()).mutation(async ({ input }) => {
         const user = await prisma.user.findUnique({
                 where: {
                     phone: input,
@@ -25,7 +25,7 @@ export const registrationRouter = router({
         }
     }),
 
-    formValidation: procedure
+    formValidation: publicProcedure
         .input(
             z.object({
                 firstName: z.string(),

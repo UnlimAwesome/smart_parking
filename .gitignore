@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+__tests__/signin.test.tsx
+__tests__/signup.test.tsx
+test-results.txt

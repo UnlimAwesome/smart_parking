@@ -1,0 +1,33 @@
+@use "../abstracts/" as *;
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: $default_margin;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: $default_margin;
+    width: 100%;
+    .info {
+        padding: $default_padding;
+        display: flex;
+        flex-direction: column;
+        gap: $default_margin;
+        background-color: white;
+        width: 100%;
+        border: 2px solid $stroke_cl;
+        border-radius: 0.8rem;
+    }
+}
+
+.header {
+    font-size: 24px;
+}
+
+.subheader {
+    font-size: 24px;
+    color: #5c5757;
+}

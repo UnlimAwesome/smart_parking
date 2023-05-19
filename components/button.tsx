@@ -5,6 +5,8 @@ import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 export interface IButtonProps {
     type?: "button" | "submit" | "reset" | undefined;
     style?: string;
+    width?: string;
+    height?: string;
     disabled: boolean;
     children: string;
     onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -12,7 +14,7 @@ export interface IButtonProps {
 
 export default function Button(props: IButtonProps) {
     return (
-        <div className={styles.container}>
+        <div style={{width: props.width, height: props.height}} className={styles.container}>
             <button
                 onClick={props.onClick}
                 className={styles[`${props.style}`]}

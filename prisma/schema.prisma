@@ -20,16 +20,30 @@ model User {
   firstName  String
   secondName String
   password   String
-  cars       String[]
   accounts   Account[]
+  cars       Car[]
+}
+
+model Car {
+  id        String    @id @unique
+  User      User?     @relation(fields: [userPhone], references: [phone])
+  userPhone String?
+  Parking   Parking[]
 }
 
 model Parking {
-  car   String    @id @unique
+  id    Int       @id @default(autoincrement())
+  car   Car       @relation(fields: [carId], references: [id])
   entry DateTime  @default(now())
   exit  DateTime?
   cost  Float?
-  payd  Boolean?
+  payed Boolean   @default(false)
+  carId String
+}
+
+model Place {
+  id        Int     @id @unique
+  occupated Boolean
 }
 
 model Account {

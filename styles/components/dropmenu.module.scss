@@ -1,0 +1,86 @@
+@use "../abstracts/" as *;
+
+@keyframes expand {
+    0% {
+        transform: translateY(88%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.dropmenu {
+    position: absolute;
+    bottom: 0;
+    top: 10%;
+    width: 100%;
+    margin-top: auto;
+    transition-delay: 300ms;
+    transform: translateY(88%);
+}
+
+.opening {
+    position: absolute;
+    bottom: 0;
+    top: 10%;
+    width: 100%;
+    margin-top: auto;
+    transition-delay: 300ms;
+    animation: expand 300ms ease-in-out;
+}
+
+.closing {
+    position: absolute;
+    bottom: 0;
+    top: 10%;
+    width: 100%;
+    margin-top: auto;
+    transition-delay: 300ms;
+    animation: expand 300ms reverse ease-in-out;
+}
+
+.dropmenu_expanded {
+    position: absolute;
+    bottom: 0;
+    top: 10%;
+    width: 100%;
+    margin-top: auto;
+    transition-delay: 300ms;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: contents;
+    position: relative;
+}
+
+.caricon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 10%;
+    aspect-ratio: 1;
+    background-color: $background_color;
+    border-radius: 50%;
+    left: calc(50% - 5vh);
+    top: 1%;
+    z-index: 1;
+}
+
+.background {
+    position: absolute;
+    inset: 0;
+    background-color: $primary_color;
+    border-radius: 2rem;
+}
+
+.foreground {
+    position: absolute;
+    background-color: $background_color;
+    top: 12%;
+    bottom: 2%;
+    left: 5%;
+    right: 5%;
+    border-radius: 2rem;
+}

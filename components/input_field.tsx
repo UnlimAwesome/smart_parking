@@ -8,6 +8,8 @@ import {
 import styles from "../styles/components/input-field.module.scss";
 
 export interface IInputFieldProps {
+    testid?: string;
+    autocomplete?: string;
     type?: string;
     label?: string;
     children?: string;
@@ -40,7 +42,6 @@ const InputField = forwardRef(
         const [error, setError] = useState("");
 
         useEffect(()=>{
-            // setQuery()
             
         })
         useEffect(() => {
@@ -65,7 +66,9 @@ const InputField = forwardRef(
             <div className={styles.inputfield}>
                 {props.label && <h4 className={styles.label}>{props.label}</h4>}
                 <input
-                    type={props.type?? "text"}
+                    data-testid={`${props.testid}-field`}
+                    autoComplete={props.autocomplete}
+                    type={props.type ?? "text"}
                     ref={ref}
                     className={styles.text}
                     placeholder={props.children}
@@ -73,7 +76,14 @@ const InputField = forwardRef(
                         setQuery(e.target.value);
                     }}
                 ></input>
-                {error && <p className={styles.error}>{error}</p>}
+                {error && (
+                    <p
+                        data-testid={`${props.testid}-error`}
+                        className={styles.error}
+                    >
+                        {error}
+                    </p>
+                )}
             </div>
         );
     }
