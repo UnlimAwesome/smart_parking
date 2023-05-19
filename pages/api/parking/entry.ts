@@ -10,18 +10,20 @@ export default async function handler(
         return;
     }
 
-    const { id, occupated } = req.body;
+    const { number, process } = req.body;
 
     let data;
     try {
-        const place = await parkingController.refreshPlace(id, occupated);
-        data = JSON.stringify(place);
+        const parking = await parkingController.updateCarHistory(
+            number,
+            process
+        );
+        data = JSON.stringify(parking);
         res.status(200).json(data);
     } catch (e) {
-        data = JSON.stringify({message: (e as Error).message});
+        data = JSON.stringify({ message: (e as Error).message });
         res.status(500).json(data);
     }
 
     console.log("DTO: ", data);
-
 }

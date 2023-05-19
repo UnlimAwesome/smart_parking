@@ -83,4 +83,35 @@
     left: 5%;
     right: 5%;
     border-radius: 2rem;
+    padding: 5%;
+}
+
+.header_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.car_container {
+    display: flex;
+}
+
+.xmark {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    content: "";
+}
+
+.xmark:after {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: black;
+}
+
+.left_button{
+    width: 0;
+    border-bottom: 20px solid #000;
+    border-left: 10px solid #000;
+    border-right: 10px solid #000;
 }

@@ -8,7 +8,12 @@ import { signOut } from "next-auth/react";
 export default function Home() {
     const client = trpc.user;
     const user = client.profile.useQuery();
+    const places = trpc.parking.freePlaces.useQuery();
     function manageProfile() {
+        throw new Error("Function not implemented.");
+    }
+
+    function openMap(): void {
         throw new Error("Function not implemented.");
     }
 
@@ -16,6 +21,18 @@ export default function Home() {
         <Main>
             <>
                 <div className={styles.container}>
+                    <h1 className={styles.places}>
+                        Количество свободных мест на парковке:
+                        <br />
+                    </h1>
+                    <Button
+                        height="3.5rem"
+                        style="primary"
+                        disabled={false}
+                        onClick={() => openMap()}
+                    >
+                        {places.data?.count.toString() || ""}
+                    </Button>
                     <section className={styles.section}>
                         <div className={styles.info}>
                             <h2 className={styles.header}>
@@ -41,6 +58,12 @@ export default function Home() {
                     <section className={styles.section}>
                         <div className={styles.info}>
                             <h2 className={styles.header}>Общая статистика</h2>
+                            <ul className={styles.list}>
+                                <li className={styles.list_item}>
+                                    <p className={styles.key}>Время использования парковки</p>
+                                    <p className={styles.value}></p>
+                                </li>
+                            </ul>
                         </div>
                         <Button
                             height="3.5rem"
@@ -68,9 +91,18 @@ export default function Home() {
                             Изменить способ оплаты
                         </Button>
                     </section>
-                    <Button height="3.5rem" style="error" onClick={()=>{signOut()}} disabled={false}>Выйти</Button>
+                    <Button
+                        height="3.5rem"
+                        style="error"
+                        onClick={() => {
+                            signOut();
+                        }}
+                        disabled={false}
+                    >
+                        Выйти
+                    </Button>
                 </div>
-                <DropMenu user={{phone: user.data?.phone}}></DropMenu>
+                <DropMenu user={{ phone: user.data?.phone }}></DropMenu>
             </>
         </Main>
     );
