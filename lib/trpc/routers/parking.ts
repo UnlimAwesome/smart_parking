@@ -120,11 +120,11 @@ export const parkingRouter = router({
                 id: true,
             },
         });
-        let hours = 0;
-        cars.map(async (car) => {
+        let mins = 0;
+        for (let car in cars) {
             let intervals = await prisma.parking.findMany({
                 where: {
-                    carId: car.id,
+                    carId: cars[car].id,
                     exit: { not: null },
                 },
                 select: {
@@ -133,14 +133,12 @@ export const parkingRouter = router({
                 },
             });
             intervals.map((interval) => {
-                hours +=
-                    (interval.exit!.valueOf() - interval.entry.valueOf()) /
-                    1000 /
-                    60 /
-                    60;
+                mins +=
+                    (interval.exit!.valueOf() - interval.entry.valueOf());
             });
-        });
-        return { totalTime: hours };
+        };
+        mins /= 60000
+        return { totalTime: Math.round(mins) };
     }),
 
     isOnParking: privateProcedure

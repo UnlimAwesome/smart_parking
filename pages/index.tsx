@@ -99,7 +99,7 @@ export default function Home() {
                                             Время использования парковки
                                         </p>
                                         <p className={styles.value}>
-                                            {myStats.data?.totalTime}
+                                            {myStats.data?.totalTime + " мин"}
                                         </p>
                                     </li>
                                 </ul>
