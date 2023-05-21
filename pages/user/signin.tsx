@@ -1,4 +1,5 @@
 import Button from "@/components/button";
+import PageHead from "@/components/head";
 import InputField from "@/components/input_field";
 import Main from "@/components/main";
 import PhoneField from "@/components/phone_field";
@@ -8,7 +9,7 @@ import sha256 from "crypto-js/sha256";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import { ZodError, z } from "zod";
 import { fromZodError } from "zod-validation-error";
 
@@ -18,7 +19,7 @@ export default function SignIn() {
     const [message, setError] = useState<string>("");
     const phone = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
-    
+
     const phoneSchema = z
         .string()
         .min(12, "Телефон должен содержать 12 знаков")
@@ -34,8 +35,7 @@ export default function SignIn() {
                     callbackUrl: "/",
                     redirect: true,
                 });
-            } catch (error: any) {
-            }
+            } catch (error: any) {}
         } else {
             setError("Неверный номер телефона и/или пароль");
         }
@@ -60,47 +60,54 @@ export default function SignIn() {
         }
     };
     return (
-        <Main>
-            <div className={styles.index}>
-                <div className={styles.logo_container}>
-                    <div className={styles.logo}></div>
-                    <div className={styles.brand}>Smart Parking</div>
+        <>
+            {" "}
+            <PageHead title="Авторизация"></PageHead>
+            <Main>
+                <div className={styles.index}>
+                    <div className={styles.logo_container}>
+                        <div className={styles.logo}></div>
+                        <div className={styles.brand}>Smart Parking</div>
+                    </div>
+                    <h1 className={styles.has_profile}>
+                        У вас уже есть аккаунт?
+                    </h1>
+                    <form className={styles.form}>
+                        <PhoneField ref={phone} validator={phoneValidator}>
+                            Номер телефона
+                        </PhoneField>
+                        <InputField
+                            testid="password"
+                            validator={notEmptyValidator}
+                            type="password"
+                            ref={password}
+                        >
+                            Пароль
+                        </InputField>
+                        <Button
+                            height="3rem"
+                            type="button"
+                            disabled={false}
+                            style="primary"
+                            onClick={processForm}
+                        >
+                            ВОЙТИ
+                        </Button>
+                        {error && (
+                            <h4 className={styles.error}>
+                                {error == "user_not_found"
+                                    ? "Пользователь с таким номером телефона не зарегистрирован"
+                                    : "Неверный номер телефона и/или пароль"}
+                            </h4>
+                        )}
+                        <Link className={styles.signup} href="/user/signup">
+                            <h4 className={styles.signup_text}>
+                                Еще не зарегестрированы?
+                            </h4>
+                        </Link>
+                    </form>
                 </div>
-                <h1 className={styles.has_profile}>У вас уже есть аккаунт?</h1>
-                <form className={styles.form}>
-                    <PhoneField ref={phone} validator={phoneValidator}>
-                        Номер телефона
-                    </PhoneField>
-                    <InputField
-                        testid="password"
-                        validator={notEmptyValidator}
-                        type="password"
-                        ref={password}
-                    >
-                        Пароль
-                    </InputField>
-                    <Button
-                        type="button"
-                        disabled={false}
-                        style="primary"
-                        onClick={processForm}
-                    >
-                        ВОЙТИ
-                    </Button>
-                    {error && (
-                        <h4 className={styles.error}>
-                            {error == "user_not_found"
-                                ? "Пользователь с таким номером телефона не зарегистрирован"
-                                : "Неверный номер телефона и/или пароль"}
-                        </h4>
-                    )}
-                    <Link className={styles.signup} href="/user/signup">
-                        <h4 className={styles.signup_text}>
-                            Еще не зарегестрированы?
-                        </h4>
-                    </Link>
-                </form>
-            </div>
-        </Main>
+            </Main>
+        </>
     );
 }

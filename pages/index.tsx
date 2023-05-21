@@ -23,118 +23,127 @@ export default function Home() {
 
     return (
         <Main>
-            <>
-                <div className={styles.container}>
-                    <h1 className={styles.free_places}>
-                        Количество свободных мест на парковке:
-                        <br />
-                    </h1>
-                    <Button
-                        height="3.5rem"
-                        style="primary"
-                        disabled={false}
-                        onClick={() => openMap()}
-                    >
-                        {freePlaces.data?.count.toString() || ""}
-                    </Button>
-                    {mapOpened && (
-                        <div className={styles.map}>
-                            <div className={styles.places}>
-                                {places.data &&
-                                    places.data.map((place) => {
-                                        return (
-                                            <div
-                                                key={place.id}
-                                                className={
-                                                    place.occupated
-                                                        ? styles.occupated_place
-                                                        : styles.free_place
-                                                }
-                                            ></div>
-                                        );
-                                    })}
+            <div className={styles.index}>
+                <div className={styles.page}>
+                    {" "}
+                    <div className={styles.container}>
+                        <h1 className={styles.free_places}>
+                            Количество свободных мест на парковке:
+                            <br />
+                        </h1>
+                        <Button
+                            height="3.5rem"
+                            style="primary"
+                            disabled={false}
+                            onClick={() => openMap()}
+                        >
+                            {freePlaces.data?.count.toString() || ""}
+                        </Button>
+                        {mapOpened && (
+                            <div className={styles.map}>
+                                <div className={styles.places}>
+                                    {places.data &&
+                                        places.data.map((place) => {
+                                            return (
+                                                <div
+                                                    key={place.id}
+                                                    className={
+                                                        place.occupated
+                                                            ? styles.occupated_place
+                                                            : styles.free_place
+                                                    }
+                                                ></div>
+                                            );
+                                        })}
+                                </div>
+                                <div
+                                    style={{ marginTop: "auto" }}
+                                    className={styles.places}
+                                >
+                                    <p>Въезд</p>
+                                    <p>Выезд</p>
+                                </div>
                             </div>
-                            <div style={{marginTop: "auto"}} className={styles.places}>
-                                <p>Въезд</p>
-                                <p>Выезд</p>
+                        )}
+                        <section className={styles.section}>
+                            <div className={styles.info}>
+                                <h2 className={styles.header}>
+                                    {user.data &&
+                                        user.data?.firstName +
+                                            " " +
+                                            user.data?.secondName}
+                                </h2>
+                                <h3 className={styles.subheader}>
+                                    {user.data?.phone}
+                                </h3>
                             </div>
-                        </div>
-                    )}
-                    <section className={styles.section}>
-                        <div className={styles.info}>
-                            <h2 className={styles.header}>
-                                {user.data?.firstName +
-                                    " " +
-                                    user.data?.secondName}
-                            </h2>
-                            <h3 className={styles.subheader}>
-                                {user.data?.phone}
-                            </h3>
-                        </div>
+                            <Button
+                                height="3.5rem"
+                                style="primary"
+                                disabled={false}
+                                onClick={() => {
+                                    manageProfile();
+                                }}
+                            >
+                                Управление профилем и подписками
+                            </Button>
+                        </section>
+                        <section className={styles.section}>
+                            <div className={styles.info}>
+                                <h2 className={styles.header}>
+                                    Общая статистика
+                                </h2>
+                                <ul className={styles.list}>
+                                    <li className={styles.list_item}>
+                                        <p className={styles.key}>
+                                            Время использования парковки
+                                        </p>
+                                        <p className={styles.value}>
+                                            {myStats.data?.totalTime}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <Button
+                                height="3.5rem"
+                                style="primary"
+                                disabled={false}
+                                onClick={() => {
+                                    manageProfile();
+                                }}
+                            >
+                                Подробная статистика
+                            </Button>
+                        </section>
+                        <section className={styles.section}>
+                            <div className={styles.info}>
+                                <h2 className={styles.header}>Способ оплаты</h2>
+                            </div>
+                            <Button
+                                height="3.5rem"
+                                style="primary"
+                                disabled={false}
+                                onClick={() => {
+                                    manageProfile();
+                                }}
+                            >
+                                Изменить способ оплаты
+                            </Button>
+                        </section>
                         <Button
                             height="3.5rem"
-                            style="primary"
-                            disabled={false}
+                            style="error"
                             onClick={() => {
-                                manageProfile();
+                                signOut();
                             }}
-                        >
-                            Управление профилем и подписками
-                        </Button>
-                    </section>
-                    <section className={styles.section}>
-                        <div className={styles.info}>
-                            <h2 className={styles.header}>Общая статистика</h2>
-                            <ul className={styles.list}>
-                                <li className={styles.list_item}>
-                                    <p className={styles.key}>
-                                        Время использования парковки
-                                    </p>
-                                    <p className={styles.value}>
-                                        {myStats.data?.totalTime}
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                        <Button
-                            height="3.5rem"
-                            style="primary"
                             disabled={false}
-                            onClick={() => {
-                                manageProfile();
-                            }}
                         >
-                            Подробная статистика
+                            Выйти
                         </Button>
-                    </section>
-                    <section className={styles.section}>
-                        <div className={styles.info}>
-                            <h2 className={styles.header}>Способ оплаты</h2>
-                        </div>
-                        <Button
-                            height="3.5rem"
-                            style="primary"
-                            disabled={false}
-                            onClick={() => {
-                                manageProfile();
-                            }}
-                        >
-                            Изменить способ оплаты
-                        </Button>
-                    </section>
-                    <Button
-                        height="3.5rem"
-                        style="error"
-                        onClick={() => {
-                            signOut();
-                        }}
-                        disabled={false}
-                    >
-                        Выйти
-                    </Button>
+                    </div>
                 </div>
                 <DropMenu user={{ phone: user.data?.phone }}></DropMenu>
-            </>
+            </div>
         </Main>
     );
 }

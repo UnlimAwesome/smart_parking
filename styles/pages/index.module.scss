@@ -48,7 +48,7 @@
     border: 2px solid $stroke_cl;
     border-radius: 0.5rem;
     width: 100%;
-    height: 400px;
+    height: 200px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -72,4 +72,32 @@
 .free_place {
     @extend %place;
     background-color: $primary_bg_color;
+}
+
+.index {
+    display: contents;
+
+}
+
+.page {
+    padding-left: 5%;
+    padding-right: 5%;
+    // display: contents;
+    overflow: scroll;
+    scrollbar-color: $primary_color transparent;
+
+    &::-webkit-scrollbar {
+        margin-right: 5px;
+        width: 3px; /* в основном для вертикальных полос прокрутки */
+        height: 3px; /* в основном для горизонтальных полос прокрутки */
+    }
+    &::-webkit-scrollbar-thumb {
+        /* плашка-бегунок */
+        width: 2px;
+        background: $primary_color;
+    }
+    &::-webkit-scrollbar-track {
+        /* фон */
+        background: transparent;
+    }
 }

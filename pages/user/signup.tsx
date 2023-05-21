@@ -11,6 +11,7 @@ import Main from "../../components/main";
 import PhoneField from "../../components/phone_field";
 import { trpc } from "../../lib/trpc/util-trpc";
 import { signIn } from "next-auth/react";
+import styles from "@/styles/pages/signup.module.scss";
 
 export interface ISingUpProps {}
 
@@ -108,10 +109,10 @@ export default function SingUp(props: ISingUpProps) {
     }
 
     return (
-        <div>
+        <>
             <PageHead title="Регистрация"></PageHead>
             <Main>
-                <form>
+                <form className={styles.form}>
                     <InputField
                         testid="name"
                         ref={firstName}
@@ -119,7 +120,7 @@ export default function SingUp(props: ISingUpProps) {
                         validator={notEmptyValidator}
                     ></InputField>
                     <InputField
-                    testid="surname"
+                        testid="surname"
                         ref={secondName}
                         label="Фамилия"
                         validator={notEmptyValidator}
@@ -138,6 +139,7 @@ export default function SingUp(props: ISingUpProps) {
                         validator={passwordValidator}
                     ></InputField>
                     <Button
+                        height="3rem"
                         type="submit"
                         style="primary"
                         disabled={!isFormValid}
@@ -147,6 +149,6 @@ export default function SingUp(props: ISingUpProps) {
                     </Button>
                 </form>
             </Main>
-        </div>
+        </>
     );
 }

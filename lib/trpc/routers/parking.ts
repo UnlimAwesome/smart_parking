@@ -14,7 +14,7 @@ export const parkingRouter = router({
         };
     }),
 
-    places: publicProcedure.query(async ()=>{
+    places: publicProcedure.query(async () => {
         const places = await prisma.place.findMany();
         return places;
     }),
@@ -123,19 +123,39 @@ export const parkingRouter = router({
         let hours = 0;
         cars.map(async (car) => {
             let intervals = await prisma.parking.findMany({
-                where:{
+                where: {
                     carId: car.id,
-                    exit: {not: null},
+                    exit: { not: null },
                 },
-                select:{
+                select: {
                     entry: true,
                     exit: true,
-                }
-            })
-            intervals.map((interval)=>{
-               hours += (interval.exit!.valueOf() - interval.entry.valueOf())/1000/60/60
-            })
+                },
+            });
+            intervals.map((interval) => {
+                hours +=
+                    (interval.exit!.valueOf() - interval.entry.valueOf()) /
+                    1000 /
+                    60 /
+                    60;
+            });
         });
-        return {totalTime: hours};
+        return { totalTime: hours };
     }),
+
+    isOnParking: privateProcedure
+        .input(z.string())
+        .mutation(async ({ input }) => {
+            const parking = await prisma.parking.findFirst({where:{
+                carId: input,
+                exit: null,
+            }})
+
+            if(!parking){
+                // throw new Error("Машины нет на паркинге");
+                return;
+            }
+
+            return({car: parking.carId});
+        }),
 });

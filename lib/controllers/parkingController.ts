@@ -31,7 +31,6 @@ class ParkingController {
     }
 
     async updateCarHistory(number: string, process: "entry" | "exit") {
-
         const carFromDB = await prisma.car.findUnique({
             where: {
                 id: number,

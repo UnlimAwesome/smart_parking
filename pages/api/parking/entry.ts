@@ -10,7 +10,7 @@ export default async function handler(
         return;
     }
 
-    const { number, process } = req.body;
+    const { number, process } = JSON.parse(await req.body);
 
     let data;
     try {
