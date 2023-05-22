@@ -52,7 +52,7 @@ export default function Home() {
                                                             ? styles.occupated_place
                                                             : styles.free_place
                                                     }
-                                                ></div>
+                                                >{place.id}</div>
                                             );
                                         })}
                                 </div>
