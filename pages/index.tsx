@@ -43,7 +43,7 @@ export default function Home() {
                             <div className={styles.map}>
                                 <div className={styles.places}>
                                     {places.data &&
-                                        places.data.map((place) => {
+                                        places.data.sort((prev, next)=>prev.id-next.id).map((place) => {
                                             return (
                                                 <div
                                                     key={place.id}
